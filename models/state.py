@@ -10,6 +10,15 @@ from sqlalchemy import Column, String, City
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
-        name: input name
+        name: input nameOB
     """
-    name = ""
+    name = Column(String(128), nullable=False)
+    __tablename__ = 'states'
+    cities = relationship('City', cascase='delete', backref='state')
+
+    if getenv('HBNB_TYPE_STORAGE') != 'db':
+        """returns City instances with state_id"""
+        @property
+        def cities(self):
+            return [value for key, value in storage.all(City).items()
+                    if value.state_id == self.id]
