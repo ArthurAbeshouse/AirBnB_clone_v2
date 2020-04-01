@@ -2,11 +2,15 @@
 """This is the file storage class for AirBnB"""
 import os
 import json
-from models.base_model import Base
-from models.base_model import BaseModel
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import scoped_session
+from models.base_model import BaseModel, Base
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class DBStorage:
@@ -29,8 +33,8 @@ class DBStorage:
                 os.getenv("HBNB_MYSQL_USER"),
                 os.getenv("HBNB_MYSQL_PWD"),
                 os.getenv("HBNB_MYSQL_HOST"),
-                os.getenv("HBNB_MYSQL_DB"),
-                pool_pre_ping=True))
+                os.getenv("HBNB_MYSQL_DB")),
+            pool_pre_ping=True)
 
         # drop all tables if the environment HBNB_ENV is equal to test
         if os.getenv("HBNB_ENV") is "test":
@@ -39,13 +43,6 @@ class DBStorage:
     def all(self, cls=None):
         """Query on the current database session."""
         """All objects will depend on the class name (argument cls)."""
-        from models.user import User
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.place import Place
-        from models.review import Review
-
         NewObjectDictionary = {}
         QueryObjects = [User, State, City, Amenity, Place, Review]
         if cls is None:
@@ -54,6 +51,12 @@ class DBStorage:
                 for values in QueryValues:
                     key = values.__class__.__name__ + '.' + values.id
                     NewObjectDictionary[key] = values
+        else:
+            QueryValues = self.__session.query(cls).all()
+            for values in QueryValues:
+                key = values.__class__.__name__ + '.' + values.id
+                NewObjectDictionary[key] = values
+        return NewObjectDictionary
 
     def new(self, obj):
         """Add the object to the current database session."""
