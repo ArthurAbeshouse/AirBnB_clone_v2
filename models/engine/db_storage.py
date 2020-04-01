@@ -2,13 +2,6 @@
 """This is the file storage class for AirBnB"""
 import os
 import json
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-
 from models.base_model import Base
 from models.base_model import BaseModel
 from sqlalchemy.orm import sessionmaker
@@ -40,21 +33,27 @@ class DBStorage:
                 pool_pre_ping=True))
 
         # drop all tables if the environment HBNB_ENV is equal to test
-        if os.getenv(HBNB_ENV) is "test":
+        if os.getenv("HBNB_ENV") is "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Query on the current database session."""
         """All objects will depend on the class name (argument cls)."""
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
 
-    NewObjectDictionary = {}
-    QueryObjects = [User, State, City, Amenity, Place, Review]
-    if cls is None:
-        for Object in QueryObjects:
-            QueryValues = self.__session.query(Object).all()
-            for values in QueryValues:
-                key = values.__class__.__name__ + '.' values.id
-                NewObjectDictionary[ley] = values
+        NewObjectDictionary = {}
+        QueryObjects = [User, State, City, Amenity, Place, Review]
+        if cls is None:
+            for Object in QueryObjects:
+                QueryValues = self.__session.query(Object).all()
+                for values in QueryValues:
+                    key = values.__class__.__name__ + '.' + values.id
+                    NewObjectDictionary[key] = values
 
     def new(self, obj):
         """Add the object to the current database session."""

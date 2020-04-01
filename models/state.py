@@ -4,7 +4,7 @@ import models
 from models.base_model import BaseModel, Base
 from os import getenv
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, String, City
+from sqlalchemy import Column, String
 
 
 class State(BaseModel, Base):
@@ -14,7 +14,7 @@ class State(BaseModel, Base):
     """
     name = Column(String(128), nullable=False)
     __tablename__ = 'states'
-    cities = relationship('City', cascase='delete', backref='state')
+    cities = relationship('City', cascade='all, delete', backref='state')
 
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         """returns City instances with state_id"""

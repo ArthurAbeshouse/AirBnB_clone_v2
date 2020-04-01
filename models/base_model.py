@@ -21,17 +21,12 @@ class BaseModel:
                 unique=True)
     # class attribute created_at
     created_at = Column(DateTime,
-                nullable=False,
-                default=datetime.utcnow())
+                        nullable=False,
+                        default=datetime.utcnow())
     # class attribute updated_at
     updated_at = Column(DateTime,
-                nullable=False,
-                default=datetime.utcnow())
-
-
-
-
-
+                        nullable=False,
+                        default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class

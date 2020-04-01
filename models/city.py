@@ -2,7 +2,7 @@
 """This is the city class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, String, City
+from sqlalchemy import Column, String, ForeignKey
 
 
 class City(BaseModel, Base):
@@ -14,4 +14,4 @@ class City(BaseModel, Base):
     __tablename__ = 'cities'
     state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
     name = Column(String(128), nullable=False)
-    places = relationship('Place', back='cities', cascade='delete')
+    places = relationship('Place', backref='cities', cascade='delete')
