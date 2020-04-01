@@ -14,9 +14,24 @@ class BaseModel:
     for other classes
     """
 
-    id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    # class attribute id
+    id = Column(String(60),
+                primary_key=True,
+                nullable=False,
+                unique=True)
+    # class attribute created_at
+    created_at = Column(DateTime,
+                nullable=False,
+                default=datetime.utcnow())
+    # class attribute updated_at
+    updated_at = Column(DateTime,
+                nullable=False,
+                default=datetime.utcnow())
+
+
+
+
+
 
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
@@ -64,6 +79,11 @@ class BaseModel:
             returns a dictionary of all the key values in __dict__
         """
         my_dict = dict(self.__dict__)
+        # Removing key _sa_instance_state from dictionary
+        # only if this key exists
+        if "_sa_instance_state" in my_dict:
+            del my_dict["_sa_instance_state"]
+
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
