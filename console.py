@@ -43,7 +43,6 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
-
             for parameters in my_list[1:]:
                 # Any Given parameters will be split into tokens
                 GivenParam = parameters.split('=')
@@ -53,10 +52,9 @@ class HBNBCommand(cmd.Cmd):
                 CharacterReplaced = value.replace("_", " ").replace("\"", "")
                 # Any double quote inside the value must be escaped with a '\'
                 setattr(obj, key, CharacterReplaced)
-
             obj.save()
             print("{}".format(obj.id))
-        except SyntaxError: 
+        except SyntaxError:
             print("** class name missing **")
         except NameError:
             print("** class doesn't exist **")
@@ -221,15 +219,15 @@ class HBNBCommand(cmd.Cmd):
         new_list.append(args[0])
         try:
             my_dict = eval(
-                args[1][args[1].find('{'):args[1].find('}')+1])
+                args[1][args[1].find('{'):args[1].find('}') + 1])
         except Exception:
             my_dict = None
         if isinstance(my_dict, dict):
-            new_str = args[1][args[1].find('(')+1:args[1].find(')')]
+            new_str = args[1][args[1].find('(') + 1:args[1].find(')')]
             new_list.append(((new_str.split(", "))[0]).strip('"'))
             new_list.append(my_dict)
             return new_list
-        new_str = args[1][args[1].find('(')+1:args[1].find(')')]
+        new_str = args[1][args[1].find('(') + 1:args[1].find(')')]
         new_list.append(" ".join(new_str.split(", ")))
         return " ".join(i for i in new_list)
 
