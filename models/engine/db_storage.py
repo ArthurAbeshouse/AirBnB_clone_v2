@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """This is the file storage class for AirBnB"""
 import os
-import json
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
@@ -29,7 +28,7 @@ class DBStorage:
         # create engine and it must be linked to the MySQL database
         # Dialect: mysql + Driver: mysqldb
         self.__engine = create_engine(
-            "mysql+mysqldb://{}:{}@{}/{}" .format(
+            "mysql+mysqldb://{}:{}@{}/{}".format(
                 os.getenv("HBNB_MYSQL_USER"),
                 os.getenv("HBNB_MYSQL_PWD"),
                 os.getenv("HBNB_MYSQL_HOST"),
@@ -74,7 +73,7 @@ class DBStorage:
     def reload(self):
         """Recreate all tables in the database."""
         Base.metadata.create_all(self.__engine)
-        CurrentDatabaseSession = sessionmaker(self.__engine,
-                                              expire_on_commit=False)
+        CurrentDatabaseSession = sessionmaker(
+            self.__engine, expire_on_commit=False)
         Session = scoped_session(CurrentDatabaseSession)
         self.__session = Session()

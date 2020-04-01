@@ -17,8 +17,7 @@ class BaseModel:
     # class attribute id
     id = Column(String(60),
                 primary_key=True,
-                nullable=False,
-                unique=True)
+                nullable=False)
     # class attribute created_at
     created_at = Column(DateTime,
                         nullable=False,
@@ -39,6 +38,8 @@ class BaseModel:
             updated_at: updated date
         """
         if kwargs:
+            if 'id' not in kwargs:
+                setattr(self, "id", str(uuid.uuid4()))
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
@@ -78,7 +79,6 @@ class BaseModel:
         # only if this key exists
         if "_sa_instance_state" in my_dict:
             del my_dict["_sa_instance_state"]
-
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
