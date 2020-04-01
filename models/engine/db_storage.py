@@ -15,6 +15,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 from sqlalchemy import create_engine
 
+
 class DBStorage:
     """This class serializes instances to a JSON file and
     deserializes JSON file to instances
@@ -30,15 +31,17 @@ class DBStorage:
 
         # create engine and it must be linked to the MySQL database
         # Dialect: mysql + Driver: mysqldb
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}"
-        .format(os.getenv("HBNB_MYSQL_USER"), os.getenv("HBNB_MYSQL_PWD"),
-                os.getenv("HBNB_MYSQL_HOST"), os.getenv("HBNB_MYSQL_DB"),
+        self.__engine = create_engine(
+            "mysql+mysqldb://{}:{}@{}/{}" .format(
+                os.getenv("HBNB_MYSQL_USER"),
+                os.getenv("HBNB_MYSQL_PWD"),
+                os.getenv("HBNB_MYSQL_HOST"),
+                os.getenv("HBNB_MYSQL_DB"),
                 pool_pre_ping=True))
 
         # drop all tables if the environment HBNB_ENV is equal to test
         if os.getenv(HBNB_ENV) is "test":
             Base.metadata.drop_all(self.__engine)
-
 
     def all(self, cls=None):
         """Query on the current database session."""
@@ -52,8 +55,6 @@ class DBStorage:
             for values in QueryValues:
                 key = values.__class__.__name__ + '.' values.id
                 NewObjectDictionary[ley] = values
-
-
 
     def new(self, obj):
         """Add the object to the current database session."""
