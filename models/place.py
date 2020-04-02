@@ -6,13 +6,12 @@ from sqlalchemy.orm import relationship
 from os import getenv
 import models
 
-
-place_amenity = Table("place_amenity", Base.metadata,
-                      Column("place_id", String(60),
-                             ForeignKey("places.id"),
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id'),
                              primary_key=True, nullable=False),
-                      Column("amenity_id", String(60),
-                             ForeignKey("amenities.id"),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
                              primary_key=True, nullable=False))
 
 
@@ -44,18 +43,18 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
 
-    if getenv("HBNB_TYPE_STORAGE") == "db":
-        reviews = relationship("Review", cascade="all, delete",
-                               backref="place")
-        amamenities = relationship("Amenity", secondary="place_amenity",
-                                   viewonly=False, back_populates="place_amenity")
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        reviews = relationship('Review', cascade='all, delete',
+                               backref='place')
+        amamenities = relationship('Amenity', secondary='place_amenity',
+                                   viewonly=False)
 
     else:
         @property
         def reviews(self):
             """returns a list of review instances"""
-            return [review_list for key, value in models.storage.all(
-                Review).items() if value.place_id == self.id]
+            return {review_list for key, value in models.storage.all(
+                Review).items() if value.place_id == self.id}
 
         @property
         def amenities(self):
