@@ -14,6 +14,8 @@ from models.review import Review
 from models.engine.file_storage import FileStorage
 
 
+@unittest.skip(os.getenv("HBNB_TYPE_STORAGE") == "db",
+                   "DBStorage Mode")
 class TestFileStorage(unittest.TestCase):
     '''this will test the FileStorage'''
 
@@ -25,11 +27,13 @@ class TestFileStorage(unittest.TestCase):
         cls.user.last_name = "Yo"
         cls.user.email = "1234@yahoo.com"
         cls.storage = FileStorage()
+        cls.state = State(name="Connecticut")
 
     @classmethod
     def teardown(cls):
         """at the end of the test this will tear it down"""
         del cls.user
+        def cls.state
 
     def tearDown(self):
         """teardown"""
