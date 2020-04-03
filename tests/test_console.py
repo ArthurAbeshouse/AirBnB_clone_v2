@@ -75,9 +75,6 @@ class TestConsole(unittest.TestCase):
     @unittest.skipIf(
         os.getenv("HBNB_TYPE_STORAGE") == "db",
         "Wrong Storage type")
-    @unittest.skipIf(
-        os.getenv("HBNB_TYPE_STORAGE") == "db",
-        "Wrong Storage type")
     def test_create(self):
         """Test create command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
