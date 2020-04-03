@@ -41,8 +41,17 @@ class TestDBStorage (unittest.TestCae):
         storage.save()
         self.assertsIs(len(storage.all()), len_of_dict + 1)
 
+    def test_pep8_dbstorage(self):
+        """Testing the pep8 linter requirments."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/engine/db_storage.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found pep8 style errors (Please review warnings).")
+    def test_dbstorage(self):
+        """Tests storage"""
+        pass
 
-def test_pep8_dbstorage(self):
+    def test_pep8_dbstorage(self):
     """Testing the pep8 linter requirments."""
     pep8style = pep8.StyleGuide(quiet=True)
     result = pep8style.check_files(['models/engine/db_storage.py'])
@@ -50,7 +59,7 @@ def test_pep8_dbstorage(self):
                      "Found pep8 style errors (Please review warnings).")
 
 
-def test_dbstorage(self):
+    def test_dbstorage(self):
     """Tests engine connection"""
     pass
 
