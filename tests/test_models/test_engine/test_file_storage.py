@@ -14,8 +14,8 @@ from models.review import Review
 from models.engine.file_storage import FileStorage
 
 
-@unittest.skip(os.getenv("HBNB_TYPE_STORAGE") == "db",
-                   "DBStorage Mode")
+@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+                 "Wrong Storage Type")
 class TestFileStorage(unittest.TestCase):
     '''this will test the FileStorage'''
 
@@ -46,6 +46,8 @@ class TestFileStorage(unittest.TestCase):
         p = style.check_files(['models/engine/file_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+                     "Wrong Storage Type")
     def test_all(self):
         """tests if all works in File Storage"""
         storage = FileStorage()
@@ -54,6 +56,8 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(obj), dict)
         self.assertIs(obj, storage._FileStorage__objects)
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+                     "Wrong Storage Type")
     def test_new(self):
         """test when new is created"""
         storage = FileStorage()
@@ -65,6 +69,8 @@ class TestFileStorage(unittest.TestCase):
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+                     "Wrong Storage Type")
     def test_reload_filestorage(self):
         """
         tests reload
@@ -76,7 +82,7 @@ class TestFileStorage(unittest.TestCase):
             lines = f.readlines()
         try:
             os.remove(path)
-        except:
+        except BaseException:
             pass
         self.storage.save()
         with open(path, 'r') as f:
@@ -84,7 +90,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(lines, lines2)
         try:
             os.remove(path)
-        except:
+        except BaseException:
             pass
         with open(path, "w") as f:
             f.write("{}")

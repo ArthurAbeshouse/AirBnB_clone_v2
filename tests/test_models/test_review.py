@@ -60,7 +60,7 @@ class TestReview(unittest.TestCase):
         self.assertEqual(type(self.rev.user_id), str)
 
     @unittest.skip(os.getenv("HBNB_TYPE_STORAGE") == "db",
-                   "DBStorage Mode")
+                   "Wrong Storage type")
     def test_save_Review(self):
         """test if the save works"""
         self.rev.save()
