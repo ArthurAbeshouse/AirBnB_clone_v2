@@ -60,8 +60,12 @@ class TestDBStorage (unittest.TestCae):
 
 
     def test_dbstorage(self):
-    """Tests engine connection"""
-    pass
+        """Tests engine storage"""
+        pass
+
+    def test_dbengine(self:
+        """Tests connection"""
+        pass
 
 
 if __name__ == "__main__":
