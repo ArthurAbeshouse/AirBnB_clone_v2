@@ -31,9 +31,6 @@ class TestDBStorage (unittest.TestCae):
         """at the end of the test this will tear it down."""
         del cls.user
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db",
-                     "db isn't being used")
-
     def test_all(self):
         """tests all in File Storage"""
         storage = DBStorage()
@@ -53,6 +50,19 @@ class TestDBStorage (unittest.TestCae):
     def test_dbstorage(self):
         """Tests storage"""
         pass
+
+    def test_pep8_dbstorage(self):
+    """Testing the pep8 linter requirments."""
+    pep8style = pep8.StyleGuide(quiet=True)
+    result = pep8style.check_files(['models/engine/db_storage.py'])
+    self.assertEqual(result.total_errors, 0,
+                     "Found pep8 style errors (Please review warnings).")
+
+
+    def test_dbstorage(self):
+    """Tests engine connection"""
+    pass
+
 
 if __name__ == "__main__":
     unittest.main()
