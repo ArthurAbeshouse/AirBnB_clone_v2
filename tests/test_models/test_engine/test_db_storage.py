@@ -67,6 +67,5 @@ class TestDBStorage (unittest.TestCae):
         """Tests connection"""
         pass
 
-
 if __name__ == "__main__":
     unittest.main()
