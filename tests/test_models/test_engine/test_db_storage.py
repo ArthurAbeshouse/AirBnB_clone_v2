@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """tests database storage"""
-import MySQLdb
 import os
 import unittest
 import pep8
