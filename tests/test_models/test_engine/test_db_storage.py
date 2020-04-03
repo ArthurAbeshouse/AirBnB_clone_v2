@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """tests database storage"""
-import MySQLdb
 import os
 import unittest
 import pep8
@@ -31,6 +30,8 @@ class TestDBStorage (unittest.TestCae):
         """at the end of the test this will tear it down."""
         del cls.user
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db",
+                     "Wrong Storage Type")
     def test_all(self):
         """tests all in File Storage"""
         storage = DBStorage()
@@ -47,20 +48,26 @@ class TestDBStorage (unittest.TestCae):
         result = pep8style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found pep8 style errors (Please review warnings).")
+
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db",
+                     "Wrong Storage Type")
     def test_dbstorage(self):
         """Tests storage"""
         pass
 
     def test_pep8_dbstorage(self):
-    """Testing the pep8 linter requirments."""
-    pep8style = pep8.StyleGuide(quiet=True)
-    result = pep8style.check_files(['models/engine/db_storage.py'])
-    self.assertEqual(result.total_errors, 0,
-                     "Found pep8 style errors (Please review warnings).")
-
+        """Testing the pep8 linter requirments."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/engine/db_storage.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found pep8 style errors (Please review warnings).")
 
     def test_dbstorage(self):
+<<<<<<< HEAD
         """Tests engine storage"""
+=======
+        """Tests engine connection"""
+>>>>>>> 62fc09ec10dfc46fc04f37c7d824adfd20eab776
         pass
 
     def test_dbengine(self:
