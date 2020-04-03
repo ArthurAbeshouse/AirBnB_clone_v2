@@ -50,3 +50,8 @@ def test_pep8_dbstorage(self):
         result = pep8style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found pep8 style errors (Please review warnings).")
+def test_dbstorage(self):
+        """Tests engine connection"""
+        pass
+if __name__ == "__main__":
+    unittest.main()
