@@ -31,8 +31,6 @@ class TestDBStorage (unittest.TestCae):
         """at the end of the test this will tear it down."""
         del cls.user
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db",
-                     "db isn't being used")
     def test_all(self):
         """tests all in File Storage"""
         storage = DBStorage()
