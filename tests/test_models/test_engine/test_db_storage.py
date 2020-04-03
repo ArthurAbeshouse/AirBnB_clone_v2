@@ -3,6 +3,7 @@
 import MySQLdb
 import os
 import unittest
+import pep8
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -27,7 +28,7 @@ class TestDBStorage (unittest.TestCae):
 
     @classmethod
     def teardown(cls):
-        """at the end of the test this will tear it down"""
+        """at the end of the test this will tear it down."""
         del cls.user
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db",
@@ -42,3 +43,10 @@ class TestDBStorage (unittest.TestCae):
         state.save()
         storage.save()
         self.assertsIs(len(storage.all()), len_of_dict + 1)
+
+def test_pep8_dbstorage(self):
+        """Testing the pep8 linter requirments."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/engine/db_storage.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found pep8 style errors (Please review warnings).")
