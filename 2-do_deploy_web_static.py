@@ -1,8 +1,22 @@
 #!/usr/bin/python3
 """Fabric script that distributes an archive to the web servers"""
 
+from datetime import datetime
+from fabric.api import local
 import os
 env.hosts = ['35.243.212.54', '3.88.185.245']
+
+
+def do_pack():
+    """Generates a .tgz archive"""
+    File = datetime.now().strftime("%Y%m%d%H%M%S") + ".tgz"
+    try:
+        if os.path.exists("versions/") is False:
+            os.mkdir("versions/")
+        local("tar -cvzf versions/web_static_{} web_static".format(File))
+        return File
+    except:
+        return None
 
 
 def do_deploy(archive_path):
