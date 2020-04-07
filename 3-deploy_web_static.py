@@ -15,8 +15,8 @@ def do_pack():
         if os.path.exists("versions/") is False:
             os.mkdir("versions/")
         local("tar -cvzf versions/web_static_{} web_static".format(File))
-        return File
-    except BaseException:
+        return ("versions/web_static_" + File)
+    except:
         return None
 
 
@@ -39,7 +39,7 @@ def do_deploy(archive_path):
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s " + new_dirctory + " /data/web_static/current")
         return True
-    except BaseException:
+    except:
         return False
 
 
