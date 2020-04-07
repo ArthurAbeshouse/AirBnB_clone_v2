@@ -26,13 +26,14 @@ def do_deploy(archive_path):
 
     try:
         put(archive_path, "/tmp/")
-        if archive_path[-4:] == ".tgz":
-            split_path = archive_path[:-4]
+        file_name = archive_path.split("/")[1]
+        if file_name[-4:] == ".tgz":
+            split_path = file_name[:-4]
         new_dirctory = "/data/web_static/releases/" + split_path
         run("sudo mkdir -p " + new_dirctory)
-        run("sudo tar -xzf /tmp/" + archive_path + " -C " + new_dirctory)
-        run("sudo rm /tmp/" + archive_path)
-        run("sudo mv " + new_dirctory + "/web_static/*" + new_dirctory)
+        run("sudo tar -xzf /tmp/" + file_name + " -C " + new_dirctory)
+        run("sudo rm /tmp/" + file_name)
+        run("sudo mv " + new_dirctory + "/web_static/* " + new_dirctory)
         run("sudo rm -rf " + new_dirctory + "/web_static")
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s " + new_dirctory + " /data/web_static/current")
