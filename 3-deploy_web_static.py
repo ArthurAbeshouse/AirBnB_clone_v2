@@ -5,7 +5,6 @@ from datetime import datetime
 from fabric.api import *
 import os
 env.hosts = ['35.243.212.54', '3.88.185.245']
-env.user = 'ubuntu'
 
 
 def do_pack():
@@ -42,7 +41,6 @@ def do_deploy(archive_path):
     except:
         return False
 
-
 def deploy():
     """Creates and distributes an
     archive to your web servers"""
@@ -50,3 +48,4 @@ def deploy():
     if not new_path:
         return False
     return do_deploy(new_path)
+    
