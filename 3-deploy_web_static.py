@@ -5,7 +5,7 @@ from datetime import datetime
 from fabric.api import *
 import os
 env.hosts = ['35.243.212.54', '3.88.185.245']
-
+env.user = 'ubuntu'
 
 def do_pack():
     """Generates a .tgz archive"""
@@ -15,7 +15,7 @@ def do_pack():
             os.mkdir("versions/")
         local("tar -cvzf versions/web_static_{} web_static".format(File))
         return File
-    except:
+    except BaseException:
         return None
 
 
@@ -38,8 +38,9 @@ def do_deploy(archive_path):
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s " + new_dirctory + " /data/web_static/current")
         return True
-    except:
+    except BaseException:
         return False
+
 
 def deploy():
     """Creates and distributes an
@@ -48,4 +49,3 @@ def deploy():
     if not new_path:
         return False
     return do_deploy(new_path)
-    
