@@ -28,6 +28,7 @@ def python_text(text):
     """ Routes /python/<text> """
     return "Python " + text.replace("_", " ")
 
+
 @app.route("/number/<int:n>")
 def number(n):
     """ Routes /number/<n> """
