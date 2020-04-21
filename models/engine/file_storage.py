@@ -26,7 +26,7 @@ class FileStorage:
             returns a dictionary of __object
         """
         obj_dict = {}
-        if cls == None:
+        if cls is None:
             return self.__objects
         for key, value in self.__objects.items():
             if cls.__name__ == key.split(".")[0]:
@@ -73,4 +73,3 @@ class FileStorage:
     def close(self):
         """ deserializies the JSON file to objects """
         self.reload()
-        
