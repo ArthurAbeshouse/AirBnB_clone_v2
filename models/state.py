@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """This is the state class"""
-import models
 from models.base_model import BaseModel, Base
 from os import getenv
 from sqlalchemy.orm import relationship
@@ -20,5 +19,7 @@ class State(BaseModel, Base):
         """returns City instances with state_id"""
         @property
         def cities(self):
+            from models import storage
+            from models import City
             return [value for key, value in storage.all(City).items()
                     if value.state_id == self.id]
