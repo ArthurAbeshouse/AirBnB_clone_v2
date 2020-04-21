@@ -21,5 +21,6 @@ def states_list():
 
 
 if __name__ == '__main__':
+    storage.reload()
     app.run()
     app.url_map.strict_slashes = False
