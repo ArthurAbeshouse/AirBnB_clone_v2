@@ -17,9 +17,11 @@ def close_db(exception):
 @app.route("/states/<state_id>")
 def states_list(state_id=None):
     """ Lists all the states """
-    states = storage.all(State)
     if state_id is not None:
-        state_id = "States.{}".format(state_id)
+        states = storage.all(State)
+        state_id = "State.{}".format(state_id)
+    else:
+        states = list(storage.all(State).values())
     return render_template("9-states.html", states=states, state_id=state_id)
 
 
