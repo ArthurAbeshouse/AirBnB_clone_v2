@@ -25,7 +25,6 @@ button:hover {
     display: inline-grid;
 }
 .filters h2 {
-    margin-left: 15%;
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 600;
@@ -52,7 +51,7 @@ button:hover {
 }
 .popover {
     visibility: hidden;
-    width: 100%;
+    width: auto;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     background: #FAFAFA;
@@ -61,17 +60,19 @@ button:hover {
     overflow: scroll;
 }
 .amenities .popover {
-    padding: 20px 0;
+    padding-top: 20px;
+    line-height: 1.8em;
     margin-left: -5px;
-    margin-top: 1%;
+    margin-top: 0%;
 }
 .locations .popover {
-    margin-top: 1%;
+    margin-top: 0%;
 }
 .popover ul {
     list-style-type: none;
 }
 .amenities:hover .popover,
 .locations:hover .popover {
+    list-style-type: none;
     visibility: visible;
 }
